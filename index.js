@@ -1,20 +1,17 @@
 const express = require('express')
 const app = express()
+const userrouter = require('./router/users')
+
 const port = 3000
+
+app.use(express.json()) // for parsing application/json
+app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-app.get('/users', (req, res) => {
-    res.send('Got All Users!')
-  })
-
-  app.post('/user', (req, res) => {
-    res.send('Got a Post request')
-  })
-
-  app.put('/user/;id')
+app.use(userrouter)
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
